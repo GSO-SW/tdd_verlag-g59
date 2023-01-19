@@ -24,86 +24,95 @@ namespace VerlagTests
 			Assert.AreEqual(auflage, b.Auflage);
 		}
 
-		[TestMethod]
-		public void Buch_KeineAuflageEntsprichtErsterAuflage()
-		{
-			//Arrange
+        [TestMethod]
+        public void Buch_KeineAuflageEntsprichtErsterAuflage()
+        {
+            //Arrange
 
-			//Act 
-			Buch b = new Buch("autor", "titel");
+            //Act 
+            Buch b = new Buch("autor", "titel");
 
-			//Assert
-			Assert.AreEqual(1, b.Auflage);
-		}
+            //Assert
+            Assert.AreEqual(1, b.Auflage);
+        }
 
-		[TestMethod]
-		public void Autor_DarfVeraendertWerden()
-		{
-			//Arrange
-			string autor = "Abdullah";
-			string autorNeu = "Thomas";
+        [TestMethod]
+        public void Autor_DarfVeraendertWerden()
+        {
+            //Arrange
+            string autor = "Abdullah";
+            string autorNeu = "Thomas";
 
-			//Act
-			Buch b = new Buch(autor, "titel");
-			b.Autor = autorNeu;
+            //Act
+            Buch b = new Buch(autor, "titel");
+            b.Autor = autorNeu;
 
-			//Assert
-			Assert.AreEqual(autorNeu, b.Autor);
+            //Assert
+            Assert.AreEqual(autorNeu, b.Autor);
 
-		}
+        }
 
-		[TestMethod]
-		public void Auflage_DarfVeraendertWerden()
-		{
-			//Arrange
-			int auflage = 15;
-			int auflageNeu = 42;
+        [TestMethod]
+        public void Auflage_DarfVeraendertWerden()
+        {
+            //Arrange
+            int auflage = 15;
+            int auflageNeu = 42;
 
-			//Act
-			Buch b = new Buch("autor", "titel", auflage);
-			b.Auflage = auflageNeu;
+            //Act
+            Buch b = new Buch("autor", "titel", auflage);
+            b.Auflage = auflageNeu;
 
-			//Assert
-			Assert.AreEqual(auflageNeu, b.Auflage);
+            //Assert
+            Assert.AreEqual(auflageNeu, b.Auflage);
 
-		}
+        }
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void Buch_AuflageDarfNichtZuKleinSein()
-		{
-			//Arrange
-			int auflage = 0;
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Buch_AuflageDarfNichtZuKleinSein()
+        {
+            //Arrange
+            int auflage = 0;
 
-			//Act
-			Buch b = new Buch("autor", "titel", auflage);
-		}
+            //Act
+            Buch b = new Buch("autor", "titel", auflage);
+        }
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void Auflage_DarfNichtZuKleinSein()
-		{
-			//Arrange
-			Buch b = new Buch("autor", "titel");
-			int auflageNeu = 0;
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Auflage_DarfNichtZuKleinSein()
+        {
+            //Arrange
+            Buch b = new Buch("autor", "titel");
+            int auflageNeu = 0;
 
-			//Act
-			b.Auflage = auflageNeu;
-		}
+            //Act
+            b.Auflage = auflageNeu;
+        }
 
-		// DataRow: https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-mstest#add-more-features
-		[TestMethod]
-		[DataRow("")]
-		[DataRow("#")]
-		[DataRow(";")]
-		[DataRow("§")]
-		[DataRow("%")]
-		[DataRow(null)]
-		[ExpectedException(typeof(ArgumentException))]
-		public void Autor_NurSinnvolleEingabenErlaubt(string unerlaubtesZeichen)
-		{
-			//Act
-			Buch b = new Buch(unerlaubtesZeichen, "titel");
-		}
-	}
+        // DataRow: https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-mstest#add-more-features
+        [TestMethod]
+        [DataRow("")]
+        [DataRow("#")]
+        [DataRow(";")]
+        [DataRow("§")]
+        [DataRow("%")]
+        
+        [ExpectedException(typeof(ArgumentException))]
+        public void Autor_NurSinnvolleEingabenErlaubt(string unerlaubtesZeichen)
+        {
+            //Act
+            Buch b = new Buch(unerlaubtesZeichen, "titel");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        
+        public void Autor_KannNichtNullSein()
+        {
+            //Act
+            Buch b = new Buch(null, "titel");
+        }
+    }
 }
