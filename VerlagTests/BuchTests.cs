@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Verlag;
 
@@ -92,18 +93,20 @@ namespace VerlagTests
         }
 
         // DataRow: https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-mstest#add-more-features
+        List<string> unerlaubteZeichenListe = new List <string>() { "", "#", ";", "§", "%" };
         [TestMethod]
-        [DataRow("")]
-        [DataRow("#")]
-        [DataRow(";")]
-        [DataRow("§")]
-        [DataRow("%")]
-        
+        //[DataRow("")]
+        //[DataRow("#")]
+        //[DataRow(";")]
+        //[DataRow("§")]
+        //[DataRow("%")]
+
+        [DataRow(unerlaubteZeichenListe)]
         [ExpectedException(typeof(ArgumentException))]
-        public void Autor_NurSinnvolleEingabenErlaubt(string unerlaubtesZeichen)
+        public void Autor_NurSinnvolleEingabenErlaubt(string unerlaubtesZeichenListe)
         {
             //Act
-            Buch b = new Buch(unerlaubtesZeichen, "titel");
+            Buch b = new Buch(unerlaubtesZeichenListe, "titel");
         }
 
         [TestMethod]
